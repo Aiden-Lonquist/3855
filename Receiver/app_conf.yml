@@ -1,0 +1,10 @@
+version: 1
+customevent:
+    url: http://localhost:8090/orders/custom
+standardevent:
+    url: http://localhost:8090/orders/standard
+
+events:
+    hostname: kafka-3855.eastus2.cloudapp.azure.com
+    port: 9092
+    topic: events
