@@ -1,0 +1,141 @@
+openapi: 3.0.0
+info:
+  description: Simple inventory of keyboards ordered
+  version: "1.0.0"
+  title: Keyboard Order Inventory
+  contact:
+    email: aiden@lonquist.net
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: Keyboards
+    description: Operations available to keyboard orders
+paths:
+  /receive/standard:
+    get:
+      tags:
+        - devices
+      summary: gets a message from the queue
+      operationId: app.get_standard_order
+      description: gets a new standard order after a timestamp
+      parameters:
+        - name: index
+          in: query
+          description: index number for message queue
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Successfully returned a message
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/standardOrder'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /receive/custom:
+    get:
+      tags:
+        - devices
+      summary: gets a message from the queue
+      operationId: app.get_custom_order
+      description: gets a new custom order after a timestamp
+      parameters:
+        - name: index
+          in: query
+          description: index number for message queue
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Successfully returned a message
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/customOrder'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    standardOrder:
+      required:
+        - id
+        - customer_id
+        - customer_address
+        - order_date
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        customer_id:
+          type: string
+          example: B6H52
+        customer_address:
+          type: string
+          example: '5555 random st. Vancouver, BC'
+        order_date:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+      type: object
+
+    customOrder:
+      required:
+        - id
+        - customer_id
+        - customer_address
+        - order_date
+        - customized_details
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        customer_id:
+          type: string
+          example: B6H52
+        customer_address:
+          type: string
+          example: '5555 random st. Vancouver, BC'
+        order_date:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+        customized_details:
+          $ref: '#/components/schemas/customization'
+      type: object
+
+    customization:
+      required:
+        - design
+        - name
+      properties:
+        design:
+          type: string
+          example: 'Alternating red and green key caps'
+        name:
+          type: string
+          example: 'My cool keyboard'
+      type: object
