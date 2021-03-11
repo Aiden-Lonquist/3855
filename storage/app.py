@@ -96,6 +96,7 @@ def get_custom_order(timestamp):
 
 def process_messages():
     """ Process event messages """
+    logger.info("starting message process service")
     hostname = "%s:%d" % (app_config["events"]["hostname"], app_config["events"]["port"])
     client = KafkaClient(hosts=hostname)
     topic = client.topics[str.encode(app_config["events"]["topic"])]
