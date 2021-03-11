@@ -48,7 +48,7 @@ def populate_stats():
     '#get the standard orders from the database'
     logger.info("getting standard orders")
     try:
-        standard_orders = requests.get('http://kafka-3855.eastus2.cloudapp.azure.com:8090/receive/standard?', f'timestamp={cur_data["last_updated"]}')
+        standard_orders = requests.get('http://localhost:8090/receive/standard?', f'timestamp={cur_data["last_updated"]}')
         if standard_orders.status_code != 200: logger.error(f'standard orders did not get 200')
         logger.info(f"periodic processing received: {len(standard_orders.json())} standard orders")
     except Exception as e:
@@ -57,7 +57,7 @@ def populate_stats():
     '#get the custom orders from the database'
     logger.info("getting custom orders")
     try:
-        custom_orders = requests.get('http://kafka-3855.eastus2.cloudapp.azure.com:8090/receive/custom?', f'timestamp={cur_data["last_updated"]}')
+        custom_orders = requests.get('http://localhost:8090/receive/custom?', f'timestamp={cur_data["last_updated"]}')
         if custom_orders.status_code != 200: logger.error(f'custom orders did not get 200')
         logger.info(f"periodic processing received: {len(custom_orders.json())} custom orders")
     except Exception as e:
