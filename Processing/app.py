@@ -31,9 +31,11 @@ def populate_stats():
 
     '#get the old statistics'
     if path.exists(app_config["datastore"]["filename"]):
+        logger.debug("path was found")
         with open(app_config["datastore"]["filename"], 'r') as f:
             cur_data = json.load(f)
     else:
+        logger.debug("path was not found")
         cur_data = {"num_standard_order": 0,
                     "max_standard_order_id": 00000000,
                     "num_custom_order": 0,
@@ -44,11 +46,13 @@ def populate_stats():
     cur_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     '#get the standard orders from the database'
+    logger.info("getting standard orders")
     standard_orders = requests.get('http://localhost:8090/receive/standard?', f'timestamp={cur_data["last_updated"]}')
     if standard_orders.status_code != 200: logger.error(f'standard orders did not get 200')
     logger.info(f"periodic processing received: {len(standard_orders.json())} standard orders")
 
     '#get the custom orders from the database'
+    logger.info("getting custom orders")
     custom_orders = requests.get('http://localhost:8090/receive/custom?', f'timestamp={cur_data["last_updated"]}')
     if custom_orders.status_code != 200: logger.error(f'custom orders did not get 200')
     logger.info(f"periodic processing received: {len(custom_orders.json())} custom orders")
@@ -67,6 +71,7 @@ def populate_stats():
     num_custom_order = len(custom_orders.json()) + cur_data['num_custom_order']
 
     '# define the new data'
+    logger.info("defining new data")
     new_data = {"num_standard_order": num_standard_order,
                 "max_standard_order_id": max_standard_order_id,
                 "num_custom_order": num_custom_order,
