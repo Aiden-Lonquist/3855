@@ -22,45 +22,6 @@ Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
 
-# def process_standard_order(body):
-#     """ Receives a standard order request """
-#     session = DB_SESSION()
-#
-#     so = standardOrder(body['id'],
-#                        body['customer_id'],
-#                        body['customer_address'],
-#                        body['order_date'])
-#
-#     session.add(so)
-#
-#     session.commit()
-#     session.close()
-#     logger.debug(f"Stored event standardorder request with a unique id of {body['id']}")
-#     logger.info(f"Database running on hostname: {app_config['datastore']['hostname']} and port: {app_config['datastore']['port']}")
-#     return NoContent, 201
-
-
-# def process_custom_order(body):
-#     """ Receives a custom order request """
-#
-#     session = DB_SESSION()
-#
-#     co = customOrder(body['id'],
-#                      body['customer_id'],
-#                      body['customer_address'],
-#                      body['customized_details']['design'],
-#                      body['customized_details']['name'],
-#                      body['order_date'])
-#
-#     session.add(co)
-#
-#     session.commit()
-#     session.close()
-#     logger.debug(f"Stored event customorder request with a unique id of {body['id']}")
-#     logger.info(f"Database running on hostname: {app_config['datastore']['hostname']} and port: {app_config['datastore']['port']}")
-#     return NoContent, 201
-
-
 def get_standard_order(timestamp):
     """ Gets new standard order after the timestamp """
     session = DB_SESSION()
