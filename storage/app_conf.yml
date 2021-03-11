@@ -1,12 +1,12 @@
 version: 1
 datastore:
   user: kafka
-  password: 
-  hostname: localhost
+  password:
+  hostname: kafka-3855.eastus2.cloudapp.azure.com
   port: 3306
   db: events
 
 events:
-  hostname: localhost
+  hostname: kafka-3855.eastus2.cloudapp.azure.com
   port: 9092
   topic: events
