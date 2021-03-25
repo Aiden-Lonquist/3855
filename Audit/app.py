@@ -7,6 +7,7 @@ import logging.config
 import datetime
 import json
 from pykafka import KafkaClient
+from flask_cors import CORS, cross_origin
 
 
 def get_standard_order(index):
