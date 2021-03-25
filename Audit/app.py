@@ -73,6 +73,8 @@ def get_custom_order(index):
 
 
 app = connexion.FlaskApp(__name__, specification_dir='')
+CORS(app.app)
+app.app.config['CORS_HEADERS'] = 'Content-Type'
 app.add_api("AidenOrg-Keyboard_Orders-1.0.0-swagger.yaml", strict_validation=True, validate_responses=True)
 
 with open('app_conf.yml', 'r') as f:
