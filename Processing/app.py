@@ -8,6 +8,7 @@ import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 import json
 from os import path
+from flask_cors import CORS, cross_origin
 
 
 def get_stats():
