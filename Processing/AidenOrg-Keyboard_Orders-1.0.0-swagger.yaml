@@ -45,6 +45,7 @@ components:
       - max_standard_order_id
       - num_custom_orders
       - max_custom_order_id
+      - last_updated
       properties:
         num_standard_orders:
           type: integer
@@ -58,4 +59,7 @@ components:
         max_custom_order_id:
           type: integer
           example: 12345678
+        last_updated:
+          type: string
+          example: "01-01-2001"
       type: object
